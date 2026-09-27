@@ -12,7 +12,7 @@ namespace MCPForUnity.Editor.Helpers
     public static class StringCaseUtility
     {
         /// <summary>
-        /// Checks whether a type belongs to the built-in MCP for Unity package.
+        /// Checks whether a type belongs to the built-in ShiryuUnityMCP package.
         /// Returns true when the type's namespace starts with
         /// <paramref name="builtInNamespacePrefix"/> or its assembly is MCPForUnity.Editor.
         /// </summary>

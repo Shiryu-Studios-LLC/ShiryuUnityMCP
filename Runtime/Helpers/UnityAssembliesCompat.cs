@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace MCPForUnity.Runtime.Helpers
 {
-    // Part of MCP for Unity's compat-shim family. See UnityCompatShims.cs in this
+    // Part of ShiryuUnityMCP's Unity-version compatibility shim family. See UnityCompatShims.cs in this
     // folder for the full list of shims, the audit policy, and the reflection pattern.
     /// <summary>
     /// Version-compatible wrapper for enumerating loaded assemblies.

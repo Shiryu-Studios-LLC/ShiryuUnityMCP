@@ -16,7 +16,7 @@ namespace MCPForUnity.Editor.Setup
         private const string InstallDirKey = "UnityMcpSkillSync.InstallDir";
         private const string CodexCli = "codex";
         private const string ClaudeCli = "claude";
-        private static readonly string[] BranchOptions = { "beta", "main" };
+        private static readonly string[] BranchOptions = { "main", "beta" };
         private static readonly string[] CliOptions = { CodexCli, ClaudeCli };
 
         private string _repoUrl;
@@ -30,17 +30,17 @@ namespace MCPForUnity.Editor.Setup
 
         public static void OpenWindow()
         {
-            GetWindow<McpForUnitySkillInstaller>("Unity MCP Skill Install(Sync)");
+            GetWindow<McpForUnitySkillInstaller>("ShiryuUnityMCP Skill Install (Sync)");
         }
 
         private void OnEnable()
         {
             var userHome = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            _repoUrl = EditorPrefs.GetString(RepoUrlKey, "https://github.com/CoplayDev/unity-mcp");
-            _targetBranch = EditorPrefs.GetString(BranchKey, "beta");
+            _repoUrl = EditorPrefs.GetString(RepoUrlKey, SkillSyncService.CompatibleSkillRepoUrl);
+            _targetBranch = EditorPrefs.GetString(BranchKey, "main");
             if (!BranchOptions.Contains(_targetBranch))
             {
-                _targetBranch = "beta";
+                _targetBranch = "main";
             }
             _cliType = EditorPrefs.GetString(CliKey, CodexCli);
             if (!CliOptions.Contains(_cliType))
@@ -63,13 +63,13 @@ namespace MCPForUnity.Editor.Setup
         private void OnGUI()
         {
             FlushPendingLogs();
-            EditorGUILayout.HelpBox("Sync Unity MCP Skill to the latest on the selected branch and output the changed file list.", MessageType.Info);
+            EditorGUILayout.HelpBox("Sync the ShiryuUnityMCP skill to the latest compatible source and output the changed file list.", MessageType.Info);
             EditorGUILayout.Space(4f);
 
             EditorGUILayout.LabelField("Config", EditorStyles.boldLabel);
             using (new EditorGUI.DisabledScope(_isRunning))
             {
-                _repoUrl = EditorGUILayout.TextField("Repo URL", _repoUrl);
+                _repoUrl = EditorGUILayout.TextField("Compatible Skill Source", _repoUrl);
                 var branchIndex = Array.IndexOf(BranchOptions, _targetBranch);
                 if (branchIndex < 0)
                 {

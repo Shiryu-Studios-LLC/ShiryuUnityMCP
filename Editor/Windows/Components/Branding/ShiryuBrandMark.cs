@@ -32,6 +32,7 @@ namespace MCPForUnity.Editor.Windows.Components.Branding
                 return;
             }
 
+            // Resilient fallback if the package icon cannot be resolved during an import/reload.
             style.backgroundColor = Surface;
             var glyph = new Label("S") { pickingMode = PickingMode.Ignore };
             glyph.style.flexGrow = 1f;

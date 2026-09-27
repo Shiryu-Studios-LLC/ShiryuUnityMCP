@@ -4,7 +4,7 @@ using MCPForUnity.Editor.Services.Transport;
 namespace MCPForUnity.Editor.Services
 {
     /// <summary>
-    /// Service for controlling the MCP for Unity Bridge connection
+    /// Service for controlling the ShiryuUnityMCP bridge connection
     /// </summary>
     public interface IBridgeControlService
     {
@@ -29,13 +29,13 @@ namespace MCPForUnity.Editor.Services
         TransportMode? ActiveMode { get; }
 
         /// <summary>
-        /// Starts the MCP for Unity Bridge asynchronously
+        /// Starts the ShiryuUnityMCP bridge asynchronously
         /// </summary>
         /// <returns>True if the bridge started successfully</returns>
         Task<bool> StartAsync();
 
         /// <summary>
-        /// Stops the MCP for Unity Bridge asynchronously
+        /// Stops the ShiryuUnityMCP bridge asynchronously
         /// </summary>
         Task StopAsync();
 

@@ -13,7 +13,7 @@ using UnityEngine;
 namespace MCPForUnity.Editor.Helpers
 {
     /// <summary>
-    /// Manages dynamic port allocation and persistent storage for MCP for Unity
+    /// Manages dynamic port allocation and persistent storage for ShiryuUnityMCP
     /// </summary>
     public static class PortManager
     {
@@ -159,21 +159,21 @@ namespace MCPForUnity.Editor.Helpers
         }
 
         /// <summary>
-        /// Check if a port is currently being used by MCP for Unity
+        /// Check if a port is currently being used by ShiryuUnityMCP
         /// This helps avoid unnecessary port changes when Unity itself is using the port
         /// </summary>
         /// <param name="port">Port to check</param>
-        /// <returns>True if port appears to be used by MCP for Unity</returns>
+        /// <returns>True if port appears to be used by ShiryuUnityMCP</returns>
         public static bool IsPortUsedByMCPForUnity(int port)
         {
             try
             {
-                // Try to make a quick connection to see if it's an MCP for Unity server
+                // Try to make a quick connection to see if it's a ShiryuUnityMCP-compatible server
                 using var client = new TcpClient();
                 var connectTask = client.ConnectAsync(IPAddress.Loopback, port);
                 if (connectTask.Wait(100)) // 100ms timeout
                 {
-                    // If connection succeeded, it's likely the MCP for Unity server
+                    // If connection succeeded, it's likely the ShiryuUnityMCP-compatible server
                     return client.Connected;
                 }
                 return false;

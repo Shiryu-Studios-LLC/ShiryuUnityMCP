@@ -24,7 +24,7 @@ namespace MCPForUnity.Editor.Clients.Configurators
             linuxConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".qwen", "settings.json"),
             SupportsHttpTransport = true,
             // Default to stdio transport for Qwen Code (like Cursor)
-            // User can switch to HTTP in Unity: Window > MCP for Unity > Settings
+            // User can switch transport in Unity from Window > Shiryu Studios > ShiryuUnityMCP
         })
         { }
 
@@ -36,7 +36,7 @@ namespace MCPForUnity.Editor.Clients.Configurators
             "OR click 'Manual Setup' to copy the configuration JSON",
             "Open ~/.qwen/settings.json and paste the configuration",
             "Save and restart Qwen Code",
-            "Use /mcp command in Qwen Code to verify Unity MCP is connected",
+            "Use /mcp command in Qwen Code to verify ShiryuUnityMCP is connected",
             "Note: For full functionality, open Unity Editor and start HTTP server"
         };
     }

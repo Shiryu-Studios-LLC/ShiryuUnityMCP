@@ -13,7 +13,9 @@ namespace MCPForUnity.Editor.Setup
 {
     public static class SkillSyncService
     {
-        private const string DefaultRepoUrl = "https://github.com/CoplayDev/unity-mcp";
+        // Upstream compatibility source for the optional AI client skill files. Kept separate from
+        // ShiryuUnityMCP's package/update identity and documented in THIRD_PARTY_NOTICES.md.
+        internal const string CompatibleSkillRepoUrl = "https://github.com/CoplayDev/unity-mcp";
         private const string SkillSubdir = ".claude/skills/unity-mcp-skill";
         private const string SyncOwnershipMarker = ".unity-mcp-skill-sync";
         private const string LastSyncedCommitKeyPrefix = "UnityMcpSkillSync.LastSyncedCommit";
@@ -30,7 +32,7 @@ namespace MCPForUnity.Editor.Setup
 
         public static void SyncAsync(string installDir, string branch, Action<string> log, Action<SyncResult> onComplete)
         {
-            SyncAsync(DefaultRepoUrl, installDir, branch, log, onComplete);
+            SyncAsync(CompatibleSkillRepoUrl, installDir, branch, log, onComplete);
         }
 
         public static void SyncAsync(string repoUrl, string installDir, string branch, Action<string> log, Action<SyncResult> onComplete)

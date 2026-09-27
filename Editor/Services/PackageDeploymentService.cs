@@ -33,6 +33,7 @@ namespace MCPForUnity.Editor.Services
 
         public string GetTargetPath()
         {
+            // Prefer Package Manager resolved path for the installed package
             var packageInfo = PackageInfo.FindForAssembly(typeof(PackageDeploymentService).Assembly);
             if (packageInfo != null)
             {
@@ -51,6 +52,7 @@ namespace MCPForUnity.Editor.Services
                 }
             }
 
+            // Fallback to computed package root
             string packageRoot = AssetPathUtility.GetMcpPackageRootPath();
             if (!string.IsNullOrEmpty(packageRoot))
             {
@@ -69,6 +71,7 @@ namespace MCPForUnity.Editor.Services
             string target = GetTargetPath();
             if (string.IsNullOrEmpty(target))
                 return "Not found (check Packages/manifest.json)";
+            // Use forward slashes to avoid backslash escape sequence issues in UI text
             return target.Replace('\\', '/');
         }
 

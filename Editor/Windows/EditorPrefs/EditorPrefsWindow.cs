@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 namespace MCPForUnity.Editor.Windows
 {
     /// <summary>
-    /// Editor window for managing Unity EditorPrefs, specifically for MCP for Unity development
+    /// Editor window for managing Unity EditorPrefs used by ShiryuUnityMCP development
     /// </summary>
     public class EditorPrefsWindow : EditorWindow
     {

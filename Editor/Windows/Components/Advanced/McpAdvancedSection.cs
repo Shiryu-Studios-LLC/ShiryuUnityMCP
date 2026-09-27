@@ -98,7 +98,7 @@ namespace MCPForUnity.Editor.Windows.Components.Advanced
             if (uvxPathOverride != null)
                 uvxPathOverride.tooltip = "Override path to uvx executable. Leave empty for auto-detection.";
             if (gitUrlOverride != null)
-                gitUrlOverride.tooltip = "Override server source for uvx --from. Leave empty to use default PyPI package. Example local dev: /path/to/unity-mcp/Server";
+                gitUrlOverride.tooltip = "Override the compatible MCP server source for uvx --from. Leave empty to use the default server package. Example local dev: /path/to/server/Server";
             if (debugLogsToggle != null)
             {
                 debugLogsToggle.tooltip = "Enable verbose debug logging to the Unity Console.";
@@ -148,7 +148,7 @@ namespace MCPForUnity.Editor.Windows.Components.Advanced
             if (clearScreenshotsFolderButton != null)
                 clearScreenshotsFolderButton.tooltip = "Clear override and use the built-in default (Assets/Screenshots).";
             if (deploySourcePath != null)
-                deploySourcePath.tooltip = "Copy a MCPForUnity folder into this project's package location.";
+                deploySourcePath.tooltip = "Copy a ShiryuUnityMCP folder into this project's package location.";
 
             // Set tooltips for buttons
             if (browseUvxButton != null)
@@ -160,11 +160,11 @@ namespace MCPForUnity.Editor.Windows.Components.Advanced
             if (clearGitUrlButton != null)
                 clearGitUrlButton.tooltip = "Clear override and use default PyPI package";
             if (browseDeploySourceButton != null)
-                browseDeploySourceButton.tooltip = "Select MCPForUnity source folder";
+                browseDeploySourceButton.tooltip = "Select ShiryuUnityMCP source folder";
             if (clearDeploySourceButton != null)
                 clearDeploySourceButton.tooltip = "Clear deployment source path";
             if (deployButton != null)
-                deployButton.tooltip = "Copy MCPForUnity to this project's package location";
+                deployButton.tooltip = "Copy ShiryuUnityMCP to this project's package location";
             if (deployRestoreButton != null)
                 deployRestoreButton.tooltip = "Restore the last backup before deployment";
 
@@ -573,7 +573,7 @@ namespace MCPForUnity.Editor.Windows.Components.Advanced
 
         private void OnBrowseDeploySourceClicked()
         {
-            string picked = EditorUtility.OpenFolderPanel("Select MCPForUnity folder", string.Empty, string.Empty);
+            string picked = EditorUtility.OpenFolderPanel("Select ShiryuUnityMCP folder", string.Empty, string.Empty);
             if (string.IsNullOrEmpty(picked))
             {
                 return;

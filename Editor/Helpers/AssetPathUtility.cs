@@ -99,7 +99,7 @@ namespace MCPForUnity.Editor.Helpers
         }
 
         /// <summary>
-        /// Gets the MCP for Unity package root path.
+        /// Gets the ShiryuUnityMCP package root path.
         /// Works for registry Package Manager, local Package Manager, and Asset Store installations.
         /// </summary>
         /// <returns>The package root path (virtual for PM, absolute for Asset Store), or null if not found</returns>
@@ -145,7 +145,7 @@ namespace MCPForUnity.Editor.Helpers
         }
 
         /// <summary>
-        /// Reads and parses the package.json file for MCP for Unity.
+        /// Reads and parses the package.json file for ShiryuUnityMCP.
         /// Handles both Package Manager (registry/local) and Asset Store installations.
         /// </summary>
         /// <returns>JObject containing package.json data, or null if not found or parse failed</returns>
@@ -226,8 +226,9 @@ namespace MCPForUnity.Editor.Helpers
                 return resolved;
             }
 
-            // Default to PyPI package (avoids Windows long path issues with git clone)
-            string version = GetPackageVersion();
+            // Default to the compatible upstream PyPI server package. ShiryuUnityMCP has
+            // independent package versioning, so do not use the Shiryu package version here.
+            string version = GetMcpServerVersion();
             if (version == "unknown")
             {
                 // Fall back to latest PyPI version so configs remain valid in test scenarios
@@ -608,7 +609,40 @@ namespace MCPForUnity.Editor.Helpers
         }
 
         /// <summary>
-        /// Gets the package version from package.json
+        /// Gets the Python MCP server compatibility version from package.json.
+        /// ShiryuUnityMCP versions independently from the upstream server, so this uses
+        /// the optional mcpServerVersion field and only falls back to the package version
+        /// for backwards compatibility with older package manifests.
+        /// </summary>
+        /// <returns>Server version string, or "unknown" if not found</returns>
+        public static string GetMcpServerVersion()
+        {
+            try
+            {
+                var packageJson = GetPackageJson();
+                if (packageJson == null)
+                {
+                    return "unknown";
+                }
+
+                string serverVersion = packageJson["mcpServerVersion"]?.ToString();
+                if (!string.IsNullOrEmpty(serverVersion))
+                {
+                    return serverVersion;
+                }
+
+                string packageVersion = packageJson["version"]?.ToString();
+                return string.IsNullOrEmpty(packageVersion) ? "unknown" : packageVersion;
+            }
+            catch (Exception ex)
+            {
+                McpLog.Warn($"Failed to get MCP server version: {ex.Message}");
+                return "unknown";
+            }
+        }
+
+        /// <summary>
+        /// Gets the ShiryuUnityMCP package version from package.json.
         /// </summary>
         /// <returns>Version string, or "unknown" if not found</returns>
         public static string GetPackageVersion()

@@ -11,7 +11,7 @@ namespace MCPForUnity.Editor.Services
     /// <summary>
     /// Once per Editor session, sweeps registered configurators and re-runs CheckStatus(attemptAutoRewrite: true)
     /// for any installed client that already has a config on disk. Catches the case where the user updated the
-    /// MCP for Unity package while the Editor was closed — without this sweep, stale package versions in client
+    /// ShiryuUnityMCP package while the Editor was closed — without this sweep, stale package versions in client
     /// configs would persist until the user opens the MCP window.
     /// </summary>
     [InitializeOnLoad]

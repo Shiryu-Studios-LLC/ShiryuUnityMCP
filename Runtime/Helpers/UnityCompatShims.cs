@@ -1,7 +1,7 @@
 namespace MCPForUnity.Runtime.Helpers
 {
     /// <summary>
-    /// Index of the version-compatibility shims MCP for Unity ships. These wrap Unity APIs
+    /// Index of the Unity-version compatibility shims shipped with ShiryuUnityMCP. These wrap Unity APIs
     /// that have been renamed, deprecated, or scheduled for removal across the Unity versions
     /// the package targets (2021 LTS → 6.x → CoreCLR 6.8). Routing through a shim keeps
     /// CS0618 warnings out of the build and survives the eventual property/method removal

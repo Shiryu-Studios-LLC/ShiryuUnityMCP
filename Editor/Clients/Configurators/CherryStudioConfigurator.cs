@@ -30,7 +30,7 @@ namespace MCPForUnity.Editor.Clients.Configurators
             "Go to Settings (⚙️) → MCP Server",
             "Click 'Add Server' button",
             "For STDIO mode (recommended):",
-            "  - Name: unity-mcp",
+            "  - Name: ShiryuUnityMCP",
             "  - Type: STDIO",
             "  - Command: uvx",
             "  - Arguments: Copy from the Manual Configuration JSON below",
@@ -69,7 +69,7 @@ namespace MCPForUnity.Editor.Clients.Configurators
                        "# 3. Copy the STDIO configuration snippet that will appear\n" +
                        "# \n" +
                        "# OPTION 2: SSE mode (future support)\n" +
-                       "# Note: Unity MCP does not currently have an SSE endpoint.\n" +
+                       "# Note: ShiryuUnityMCP does not currently have an SSE endpoint.\n" +
                        "# This may be added in a future update.";
             }
 
@@ -82,7 +82,7 @@ namespace MCPForUnity.Editor.Clients.Configurators
                    "# 2. Go to Settings (⚙️) → MCP Server\n" +
                    "# 3. Click 'Add Server'\n" +
                    "# 4. Enter the following values from the JSON above:\n" +
-                   "#    - Name: unity-mcp\n" +
+                   "#    - Name: ShiryuUnityMCP\n" +
                    "#    - Type: STDIO\n" +
                    "#    - Command: (copy 'command' value from JSON)\n" +
                    "#    - Arguments: (copy 'args' array values, space-separated or as individual entries)\n" +

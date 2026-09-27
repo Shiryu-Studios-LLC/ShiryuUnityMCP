@@ -33,7 +33,7 @@ namespace MCPForUnity.Editor.Clients.Configurators
             "OR click 'Manual Setup' to copy the configuration JSON",
             "Open ~/.kimi/mcp.json and paste the configuration",
             "Save and restart Kimi Code CLI",
-            "Use 'kimi mcp list' to verify Unity MCP is connected",
+            "Use 'kimi mcp list' to verify ShiryuUnityMCP is connected",
             "Note: For full functionality, open Unity Editor and start HTTP server"
         };
     }

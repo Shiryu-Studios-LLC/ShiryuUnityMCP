@@ -18,7 +18,7 @@ using UnityEngine.UIElements;
 namespace MCPForUnity.Editor.Windows.Components.ClientConfig
 {
     /// <summary>
-    /// Controller for the Client Configuration section of the MCP for Unity editor window.
+    /// Controller for the Client Configuration section of the ShiryuUnityMCP editor window.
     /// Handles client selection, configuration, status display, and manual configuration details.
     /// </summary>
     public class McpClientConfigSection
@@ -210,7 +210,7 @@ namespace MCPForUnity.Editor.Windows.Components.ClientConfig
                 McpStatus.CommunicationError => "Communication Error",
                 McpStatus.NoResponse => "No Response",
                 McpStatus.UnsupportedOS => "Unsupported OS",
-                McpStatus.MissingConfig => "Missing MCPForUnity Config",
+                McpStatus.MissingConfig => "Missing ShiryuUnityMCP Config",
                 McpStatus.Error => "Error",
                 McpStatus.VersionMismatch => "Version Mismatch",
                 _ => "Unknown",

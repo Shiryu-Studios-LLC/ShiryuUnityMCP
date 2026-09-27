@@ -21,9 +21,10 @@ namespace MCPForUnity.Editor.Services
         private const string CachedBetaVersionKey = EditorPrefKeys.LatestKnownVersion + ".beta";
         private const string LastAssetStoreCheckDateKey = EditorPrefKeys.LastAssetStoreUpdateCheck;
         private const string CachedAssetStoreVersionKey = EditorPrefKeys.LatestKnownAssetStoreVersion;
-        private const string MainPackageJsonUrl = "https://raw.githubusercontent.com/CoplayDev/unity-mcp/main/MCPForUnity/package.json";
-        private const string BetaPackageJsonUrl = "https://raw.githubusercontent.com/CoplayDev/unity-mcp/beta/MCPForUnity/package.json";
-        private const string AssetStoreVersionUrl = "https://gqoqjkkptwfbkwyssmnj.supabase.co/storage/v1/object/public/coplay-images/assetstoreversion.json";
+        private const string MainPackageJsonUrl = "https://raw.githubusercontent.com/Shiryu-Studios-LLC/ShiryuUnityMCP/main/package.json";
+        private const string BetaPackageJsonUrl = "https://raw.githubusercontent.com/Shiryu-Studios-LLC/ShiryuUnityMCP/beta/package.json";
+        // VPM/Assets installs use the same Shiryu package manifest as the update source.
+        private const string AssetStoreVersionUrl = MainPackageJsonUrl;
 
         /// <inheritdoc/>
         public UpdateCheckResult CheckForUpdate(string currentVersion)
@@ -346,7 +347,7 @@ namespace MCPForUnity.Editor.Services
             try
             {
                 // GitHub API endpoint (Option 1 - has rate limits):
-                // https://api.github.com/repos/CoplayDev/unity-mcp/releases/latest
+                // https://api.github.com/repos/Shiryu-Studios-LLC/ShiryuUnityMCP/releases/latest
                 //
                 // We use Option 2 (package.json directly) because:
                 // - No API rate limits (GitHub serves raw files freely)
@@ -356,7 +357,7 @@ namespace MCPForUnity.Editor.Services
 
                 using (var client = CreateWebClient())
                 {
-                    client.Headers.Add("User-Agent", "Unity-MCPForUnity-UpdateChecker");
+                    client.Headers.Add("User-Agent", "ShiryuUnityMCP-UpdateChecker");
                     string packageJsonUrl = string.Equals(branch, "beta", StringComparison.OrdinalIgnoreCase)
                         ? BetaPackageJsonUrl
                         : MainPackageJsonUrl;
@@ -395,7 +396,7 @@ namespace MCPForUnity.Editor.Services
             {
                 using (var client = CreateWebClient())
                 {
-                    client.Headers.Add("User-Agent", "Unity-MCPForUnity-AssetStoreUpdateChecker");
+                    client.Headers.Add("User-Agent", "ShiryuUnityMCP-UpdateChecker");
                     string jsonContent = client.DownloadString(AssetStoreVersionUrl);
 
                     var versionJson = JObject.Parse(jsonContent);

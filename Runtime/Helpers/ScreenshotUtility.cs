@@ -774,7 +774,7 @@ namespace MCPForUnity.Runtime.Helpers
             yield return new WaitForEndOfFrame();
             Texture2D tex = null;
             try { tex = ScreenCapture.CaptureScreenshotAsTexture(_superSize); }
-            catch (Exception ex) { Debug.LogError($"[MCP for Unity] CaptureScreenshotAsTexture failed: {ex.Message}"); }
+            catch (Exception ex) { Debug.LogError($"[ShiryuUnityMCP] CaptureScreenshotAsTexture failed: {ex.Message}"); }
             _onComplete?.Invoke(tex);
             Destroy(gameObject);
         }
