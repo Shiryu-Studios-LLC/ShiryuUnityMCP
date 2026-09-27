@@ -1,0 +1,21 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.user
+*.suo
+*.tmp
+*.log
+
+# Local release output
+/dist/
+*.zip
+*.unitypackage
+
+# Do not commit local Unity project state if this package is developed standalone.
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
