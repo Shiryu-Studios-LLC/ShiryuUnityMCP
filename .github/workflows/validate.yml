@@ -1,0 +1,59 @@
+name: Validate Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate package manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq -e '
+            .name == "org.shiryu.unitymcp" and
+            (.version | type == "string" and length > 0) and
+            .displayName == "ShiryuUnityMCP" and
+            .author.name == "Shiryu Studios LLC" and
+            (.url | startswith("https://github.com/Shiryu-Studios-LLC/ShiryuUnityMCP/releases/download/"))
+          ' package.json >/dev/null
+
+      - name: Validate required package files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            package.json
+            package-icon.png
+            Editor
+            Runtime
+            README.md
+            LICENSE
+            CHANGELOG.md
+            THIRD_PARTY_NOTICES.md
+          )
+          for path in "${required[@]}"; do
+            test -e "$path" || { echo "Missing required package path: $path" >&2; exit 1; }
+          done
+
+      - name: Validate release URL matches version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(jq -r '.version' package.json)"
+          expected="https://github.com/Shiryu-Studios-LLC/ShiryuUnityMCP/releases/download/v${version}/org.shiryu.unitymcp-${version}.zip"
+          actual="$(jq -r '.url' package.json)"
+          test "$actual" = "$expected" || {
+            echo "package.json url does not match version" >&2
+            echo "expected: $expected" >&2
+            echo "actual:   $actual" >&2
+            exit 1
+          }
