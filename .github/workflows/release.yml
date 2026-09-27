@@ -1,0 +1,86 @@
+name: Publish VPM Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read and validate package version
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(jq -r '.version' package.json)"
+          package_id="$(jq -r '.name' package.json)"
+          test "$package_id" = "org.shiryu.unitymcp"
+          test -n "$version"
+          test "$version" != "null"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "zip=${package_id}-${version}.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse to overwrite an existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.package.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists. Published VPM package versions are immutable." >&2
+            exit 1
+          fi
+
+      - name: Build VPM package ZIP
+        env:
+          ZIP_NAME: ${{ steps.package.outputs.zip }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          zip -r "dist/$ZIP_NAME" \
+            package.json package.json.meta \
+            package-icon.png package-icon.png.meta \
+            Editor Editor.meta \
+            Runtime Runtime.meta \
+            README.md README.md.meta \
+            LICENSE LICENSE.meta \
+            CHANGELOG.md CHANGELOG.md.meta \
+            THIRD_PARTY_NOTICES.md THIRD_PARTY_NOTICES.md.meta
+          sha256sum "dist/$ZIP_NAME" > "dist/$ZIP_NAME.sha256"
+
+      - name: Verify ZIP manifest
+        env:
+          ZIP_NAME: ${{ steps.package.outputs.zip }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -p "dist/$ZIP_NAME" package.json | jq -e '
+            .name == "org.shiryu.unitymcp" and
+            .displayName == "ShiryuUnityMCP"
+          ' >/dev/null
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.package.outputs.tag }}
+          VERSION: ${{ steps.package.outputs.version }}
+          ZIP_NAME: ${{ steps.package.outputs.zip }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" \
+            "dist/$ZIP_NAME" \
+            "dist/$ZIP_NAME.sha256" \
+            package.json \
+            --target "$GITHUB_SHA" \
+            --title "ShiryuUnityMCP $VERSION" \
+            --generate-notes
