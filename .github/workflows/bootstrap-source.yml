@@ -1,0 +1,64 @@
+name: Bootstrap Package Source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/bootstrap-source.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ShiryuUnityMCP
+        uses: actions/checkout@v4
+        with:
+          path: shiryu
+
+      - name: Stop when source is already populated
+        id: populated
+        shell: bash
+        run: |
+          if [ -d shiryu/Editor ] && [ -d shiryu/Runtime ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout compatible upstream source
+        if: steps.populated.outputs.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: CoplayDev/unity-mcp
+          ref: v10.1.0
+          path: upstream
+
+      - name: Populate missing package source
+        if: steps.populated.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rsync -a --ignore-existing \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            upstream/MCPForUnity/ shiryu/
+
+      - name: Commit populated source
+        if: steps.populated.outputs.skip != 'true'
+        working-directory: shiryu
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to populate."
+            exit 0
+          fi
+          git commit -m "Bootstrap Unity MCP source from v10.1.0"
+          git push origin HEAD:main
