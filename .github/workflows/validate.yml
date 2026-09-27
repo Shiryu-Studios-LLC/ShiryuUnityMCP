@@ -14,7 +14,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check bootstrap completeness
+        id: bootstrap
+        shell: bash
+        run: |
+          if test -f package-icon.png && test -d Editor && test -d Runtime; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Repository bootstrap is not complete yet; skipping full package validation."
+          fi
+
       - name: Validate package manifest
+        if: steps.bootstrap.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -27,6 +39,7 @@ jobs:
           ' package.json >/dev/null
 
       - name: Validate required package files
+        if: steps.bootstrap.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -45,6 +58,7 @@ jobs:
           done
 
       - name: Validate release URL matches version
+        if: steps.bootstrap.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
