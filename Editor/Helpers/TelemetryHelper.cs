@@ -8,8 +8,8 @@ using UnityEngine;
 namespace MCPForUnity.Editor.Helpers
 {
     /// <summary>
-    /// Unity Bridge telemetry helper for collecting usage analytics
-    /// Following privacy-first approach with easy opt-out mechanisms
+    /// ShiryuUnityMCP telemetry bridge. Telemetry is disabled by default in the Shiryu distribution
+    /// and must be explicitly enabled by the user.
     /// </summary>
     public static class TelemetryHelper
     {
@@ -47,8 +47,8 @@ namespace MCPForUnity.Editor.Helpers
                     return false;
                 }
 
-                // Check EditorPrefs
-                return !UnityEditor.EditorPrefs.GetBool(TELEMETRY_DISABLED_KEY, false);
+                // Shiryu distribution is opt-in: default to disabled until the user explicitly enables it.
+                return !UnityEditor.EditorPrefs.GetBool(TELEMETRY_DISABLED_KEY, true);
             }
         }
 

@@ -33,7 +33,6 @@ namespace MCPForUnity.Editor.Services
 
         public string GetTargetPath()
         {
-            // Prefer Package Manager resolved path for the installed package
             var packageInfo = PackageInfo.FindForAssembly(typeof(PackageDeploymentService).Assembly);
             if (packageInfo != null)
             {
@@ -52,7 +51,6 @@ namespace MCPForUnity.Editor.Services
                 }
             }
 
-            // Fallback to computed package root
             string packageRoot = AssetPathUtility.GetMcpPackageRootPath();
             if (!string.IsNullOrEmpty(packageRoot))
             {
@@ -71,7 +69,6 @@ namespace MCPForUnity.Editor.Services
             string target = GetTargetPath();
             if (string.IsNullOrEmpty(target))
                 return "Not found (check Packages/manifest.json)";
-            // Use forward slashes to avoid backslash escape sequence issues in UI text
             return target.Replace('\\', '/');
         }
 
@@ -91,7 +88,7 @@ namespace MCPForUnity.Editor.Services
             string sourcePath = GetStoredSourcePath();
             if (string.IsNullOrEmpty(sourcePath))
             {
-                return Fail("Select a MCPForUnity folder first.");
+                return Fail("Select a ShiryuUnityMCP folder first.");
             }
 
             string validationError = ValidateSource(sourcePath, throwOnError: false);
@@ -108,15 +105,15 @@ namespace MCPForUnity.Editor.Services
 
             if (PathsEqual(sourcePath, targetPath))
             {
-                return Fail("Source and target are the same. Choose a different MCPForUnity folder.");
+                return Fail("Source and target are the same. Choose a different ShiryuUnityMCP folder.");
             }
 
             try
             {
-                EditorUtility.DisplayProgressBar("Deploy MCP for Unity", "Creating backup...", 0.25f);
+                EditorUtility.DisplayProgressBar("Deploy ShiryuUnityMCP", "Creating backup...", 0.25f);
                 string backupPath = CreateBackup(targetPath);
 
-                EditorUtility.DisplayProgressBar("Deploy MCP for Unity", "Replacing package contents...", 0.7f);
+                EditorUtility.DisplayProgressBar("Deploy ShiryuUnityMCP", "Replacing package contents...", 0.7f);
                 CopyCoreFolders(sourcePath, targetPath);
 
                 EditorPrefs.SetString(EditorPrefKeys.PackageDeployLastBackupPath, backupPath);
@@ -159,7 +156,7 @@ namespace MCPForUnity.Editor.Services
 
             try
             {
-                EditorUtility.DisplayProgressBar("Restore MCP for Unity", "Restoring backup...", 0.5f);
+                EditorUtility.DisplayProgressBar("Restore ShiryuUnityMCP", "Restoring backup...", 0.5f);
                 ReplaceDirectory(backupPath, targetPath);
 
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);

@@ -1,7 +1,7 @@
 namespace MCPForUnity.Editor.Constants
 {
     /// <summary>
-    /// Centralized list of EditorPrefs keys used by the MCP for Unity package.
+    /// Centralized list of EditorPrefs keys used by ShiryuUnityMCP.
     /// Keeping them in one place avoids typos and simplifies migrations.
     /// </summary>
     internal static class EditorPrefKeys
