@@ -1,6 +1,17 @@
 name: Publish VPM Release
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - package.json
+      - Editor/**
+      - Runtime/**
+      - README.md
+      - CHANGELOG.md
+      - LICENSE
+      - THIRD_PARTY_NOTICES.md
+      - .github/workflows/release.yml
   workflow_dispatch:
 
 permissions:
@@ -20,26 +31,31 @@ jobs:
           set -euo pipefail
           version="$(jq -r '.version' package.json)"
           package_id="$(jq -r '.name' package.json)"
+          display_name="$(jq -r '.displayName' package.json)"
           test "$package_id" = "org.shiryu.unitymcp"
+          test "$display_name" = "Shiryu.UnityMCP"
           test -n "$version"
           test "$version" != "null"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=v$version" >> "$GITHUB_OUTPUT"
           echo "zip=${package_id}-${version}.zip" >> "$GITHUB_OUTPUT"
 
-      - name: Refuse to overwrite an existing release
+      - name: Check existing release
+        id: existing
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.package.outputs.tag }}
         shell: bash
         run: |
-          set -euo pipefail
           if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release $TAG already exists. Published VPM package versions are immutable." >&2
-            exit 1
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release $TAG already exists; nothing to publish."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Build VPM package ZIP
+        if: steps.existing.outputs.exists != 'true'
         env:
           ZIP_NAME: ${{ steps.package.outputs.zip }}
         shell: bash
@@ -58,6 +74,7 @@ jobs:
           sha256sum "dist/$ZIP_NAME" > "dist/$ZIP_NAME.sha256"
 
       - name: Verify ZIP manifest
+        if: steps.existing.outputs.exists != 'true'
         env:
           ZIP_NAME: ${{ steps.package.outputs.zip }}
         shell: bash
@@ -69,6 +86,7 @@ jobs:
           ' >/dev/null
 
       - name: Publish GitHub release
+        if: steps.existing.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.package.outputs.tag }}
