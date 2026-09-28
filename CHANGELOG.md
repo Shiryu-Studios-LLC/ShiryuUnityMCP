@@ -1,6 +1,15 @@
 # Changelog
 
-All notable ShiryuUnityMCP changes will be documented here.
+All notable Shiryu.UnityMCP changes will be documented here.
+
+## 1.0.1 - 2026-09-28
+
+### Changed
+
+- Standardized the public package name as **Shiryu.UnityMCP**.
+- Kept the VPM package ID `org.shiryu.unitymcp` unchanged so existing projects continue to upgrade normally.
+- Updated release metadata and documentation to use the `Shiryu.*` package naming convention.
+- Preserved internal `MCPForUnity` namespaces, legacy folder names, and Unity menu identifiers for compatibility.
 
 ## 1.0.0 - 2026-09-27
 
