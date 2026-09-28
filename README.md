@@ -1,6 +1,6 @@
-# ShiryuUnityMCP
+# Shiryu.UnityMCP
 
-**ShiryuUnityMCP** is the Shiryu Studios LLC Unity bridge for the Model Context Protocol (MCP). It lets supported AI clients connect to and automate the Unity Editor for scene work, assets, scripts, testing, builds, and other editor workflows.
+**Shiryu.UnityMCP** is the Shiryu Studios LLC Unity bridge for the Model Context Protocol (MCP). It lets supported AI clients connect to and automate the Unity Editor for scene work, assets, scripts, testing, builds, and other editor workflows.
 
 > Published by **Shiryu Studios LLC** and distributed through the Shiryu VPM repository.
 
@@ -10,7 +10,7 @@ Add the Shiryu Studios package repository:
 
 `https://packages.shiryu.org/official?download`
 
-Then install **ShiryuUnityMCP** from the package list.
+Then install **Shiryu.UnityMCP** from the package list.
 
 The VPM package ID is:
 
@@ -38,7 +38,7 @@ Keyboard shortcut:
 
 ## Supported workflow areas
 
-ShiryuUnityMCP includes tooling for:
+Shiryu.UnityMCP includes tooling for:
 
 - Unity editor and scene automation
 - GameObject and component management
@@ -57,7 +57,7 @@ ShiryuUnityMCP includes tooling for:
 - VCC / VPM and ALCOM package installation
 - MCP clients supported by the included client configurators
 
-The first Shiryu release is version `1.0.0`. The bundled Unity bridge keeps its compatible Python MCP server version separately so ShiryuUnityMCP can follow its own release numbering without breaking server compatibility.
+The public VPM package name is **Shiryu.UnityMCP**. The bundled Unity bridge keeps its compatible Python MCP server version separately so the package can follow its own release numbering without breaking server compatibility.
 
 ## Package migration
 
@@ -65,25 +65,25 @@ The VPM manifest declares the previous `com.coplaydev.unity-mcp` package as a le
 
 ## Branding and internal compatibility
 
-The public product name is **ShiryuUnityMCP** and the publisher is **Shiryu Studios LLC**.
+The public package name is **Shiryu.UnityMCP** and the publisher is **Shiryu Studios LLC**.
 
-Some internal C# namespaces and assembly names still use `MCPForUnity`. They are intentionally preserved in the first Shiryu release to avoid breaking serialized references, assembly references, client configuration, and existing integrations. They can be migrated in a future breaking release with explicit compatibility shims.
+Some internal C# namespaces, assembly names, folders, and Unity menu paths still use `MCPForUnity` or `ShiryuUnityMCP`. They are intentionally preserved for compatibility with serialized references, assembly references, client configuration, and existing integrations.
 
 ## Publishing the VPM package
 
-For each ShiryuUnityMCP release:
+For each Shiryu.UnityMCP release:
 
 1. Update the package `version` and matching release `url` in `package.json`.
 2. Create a ZIP whose root contains `package.json`, `Editor`, `Runtime`, `LICENSE`, `README.md`, `CHANGELOG.md`, and `THIRD_PARTY_NOTICES.md`.
-3. Publish the ZIP as `org.shiryu.unitymcp-<version>.zip` on the matching GitHub release tag, for example `v1.0.0`.
-4. Add `Shiryu-Studios-LLC/ShiryuUnityMCP` to the `githubRepos` list in the ShiryuVPM listing repository.
+3. Publish the ZIP as `org.shiryu.unitymcp-<version>.zip` on the matching GitHub release tag.
+4. Keep `Shiryu-Studios-LLC/ShiryuUnityMCP` in the `githubRepos` list in the ShiryuVPM listing repository.
 5. Let the VPM listing builder generate the final repository entry, download URL, and ZIP SHA-256.
 
 Published package versions should not be deleted once projects may depend on them.
 
 ## License and upstream attribution
 
-ShiryuUnityMCP is based on the open-source **MCP for Unity** project originally published by CoplayDev under the MIT License. The original copyright and MIT permission notice are preserved in `LICENSE`.
+Shiryu.UnityMCP is based on the open-source **MCP for Unity** project originally published by CoplayDev under the MIT License. The original copyright and MIT permission notice are preserved in `LICENSE`.
 
 See `THIRD_PARTY_NOTICES.md` for upstream attribution and compatibility notes.
 
