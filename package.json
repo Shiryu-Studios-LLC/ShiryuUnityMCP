@@ -1,14 +1,14 @@
 {
   "name": "org.shiryu.unitymcp",
-  "version": "1.0.0",
-  "displayName": "ShiryuUnityMCP",
+  "version": "1.0.1",
+  "displayName": "Shiryu.UnityMCP",
   "description": "Shiryu Studios' Unity MCP bridge for connecting AI assistants to the Unity Editor. Includes client configuration, transport management, editor automation tools, validation utilities, and cross-platform setup support.",
   "unity": "2021.3",
   "documentationUrl": "https://packages.shiryu.org",
   "licensesUrl": "https://github.com/Shiryu-Studios-LLC/ShiryuUnityMCP/blob/main/LICENSE",
   "changelogUrl": "https://github.com/Shiryu-Studios-LLC/ShiryuUnityMCP/blob/main/CHANGELOG.md",
   "license": "MIT",
-  "url": "https://github.com/Shiryu-Studios-LLC/ShiryuUnityMCP/releases/download/v1.0.0/org.shiryu.unitymcp-1.0.0.zip",
+  "url": "https://github.com/Shiryu-Studios-LLC/ShiryuUnityMCP/releases/download/v1.0.1/org.shiryu.unitymcp-1.0.1.zip",
   "mcpServerVersion": "10.1.0",
   "dependencies": {
     "com.unity.modules.animation": "1.0.0",
