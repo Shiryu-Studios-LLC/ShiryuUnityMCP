@@ -65,7 +65,7 @@ jobs:
           set -euo pipefail
           unzip -p "dist/$ZIP_NAME" package.json | jq -e '
             .name == "org.shiryu.unitymcp" and
-            .displayName == "ShiryuUnityMCP"
+            .displayName == "Shiryu.UnityMCP"
           ' >/dev/null
 
       - name: Publish GitHub release
@@ -82,5 +82,5 @@ jobs:
             "dist/$ZIP_NAME.sha256" \
             package.json \
             --target "$GITHUB_SHA" \
-            --title "ShiryuUnityMCP $VERSION" \
+            --title "Shiryu.UnityMCP $VERSION" \
             --generate-notes
